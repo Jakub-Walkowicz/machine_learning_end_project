@@ -4,7 +4,12 @@ Bank_marketing.egg-info/SOURCES.txt
 Bank_marketing.egg-info/dependency_links.txt
 Bank_marketing.egg-info/top_level.txt
 project/__init__.py
-project/bank_marketing.py
+project/main.py
 project/constants/__init__.py
 project/constants/columns.py
 project/constants/constants.py
+project/core_steps/__init__.py
+project/core_steps/eda_analysis.py
+project/utils/__init__.py
+project/utils/charts.py
+project/utils/utils.py
