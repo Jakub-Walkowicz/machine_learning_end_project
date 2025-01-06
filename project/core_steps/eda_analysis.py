@@ -2,7 +2,7 @@ from constants.constants import Columns
 import numpy as np
 import pandas as pd
 from project.utils.charts import barplot_balance, heatmap_correlation, boxplot_histplot_outliers
-from project.utils.utils import calc_class_distribution
+from project.utils.utils import calc_class_distribution, get_correlations
 
 
 from scipy.stats import trim_mean
@@ -38,10 +38,7 @@ def perform_eda_analysis(df):
     )
 
     # Analyse the impact of individual variables on the forecast variable Y
-    df_copy = df.copy()
-    df_copy[Columns.OUTPUT] = df_copy[Columns.OUTPUT].map({"yes": 1, "no": 0})
-    correlations = df_copy.corr(numeric_only=True)
-    correlations = correlations.sort_values(by=Columns.OUTPUT, ascending=False)
+    correlations = get_correlations(df)
     # heatmap_correlation(correlations)
     print(
         "\n\nImpact of specific variables on the forecast variable y --\n\n",
