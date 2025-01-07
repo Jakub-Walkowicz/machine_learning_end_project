@@ -1,5 +1,7 @@
 from project.constants.columns import Columns
 
+FILE_PATH = "data/bank_full.csv"
+
 NUMERIC_COLUMNS = [
     Columns.AGE,
     Columns.BALANCE,
