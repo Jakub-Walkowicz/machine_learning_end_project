@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.preprocessing import StandardScaler
 from project.core.kknn import build_kknn
+from project.core.svm import build_svm
 
 # Read the dataset from a csv file
 df = get_df()
@@ -36,9 +37,10 @@ X_train_scaled = scaler.transform(X_train_undersampled)
 X_test_scaled = scaler.transform(X_test)
 
 # KKKN
-kknn = build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
-
-# Decision tree
-
+# build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
 
 # SVM model
+build_svm(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
+
+
+# Decision tree
