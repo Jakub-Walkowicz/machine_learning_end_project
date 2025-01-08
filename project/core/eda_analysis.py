@@ -1,7 +1,11 @@
 from constants.constants import Columns
 import numpy as np
 import pandas as pd
-from project.utils.charts import barplot_balance, heatmap_correlation, boxplot_histplot_outliers
+from project.utils.charts import (
+    barplot_balance,
+    heatmap_correlation,
+    boxplot_histplot_outliers,
+)
 from project.utils.utils import calc_class_distribution, get_correlations
 
 
@@ -26,16 +30,8 @@ def perform_eda_analysis(df):
     # Check the number of null values
     print("\n\nNumber of null values -- \n\n", df.isnull().sum())
 
-    # Analyse the 'jobs' column
-    print(
-        "\n\nJob type and its frequency in the dataset -- \n\n",
-        df[Columns.JOB].value_counts(),
-    )
-
-    # Analyse the values of the 'age' column
-    print(
-        f"\n\nMinimum age value: {df[Columns.AGE].min()}, Maximum age value: {df[Columns.AGE].max()} -- \n\n"
-    )
+    # Column 'contact' analysis
+    print("\n\nColumn 'contact' unique values: -- \n\n", df[Columns.CONTACT].unique())
 
     # Analyse the impact of individual variables on the forecast variable Y
     correlations = get_correlations(df)
@@ -51,12 +47,7 @@ def perform_eda_analysis(df):
     # barplot_balance(y_value_counts)
 
     # Balance of the dataset in percentages
-    total_samples = y_value_counts["count"].sum()
-    class_distribution = calc_class_distribution(y_value_counts, total_samples)
-
-    print(
-        f"\nClass distribution: {class_distribution['majority']}% majority, {class_distribution['minority']}% minority"
-    )
+    calc_class_distribution(y_value_counts, y_value_counts["count"].sum())
 
     # Detecting outliers in numeric variables
     # boxplot_histplot_outliers(df)
