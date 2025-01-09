@@ -9,6 +9,7 @@ from project.utils.utils import (
 )
 from sklearn.model_selection import train_test_split
 from imblearn.under_sampling import RandomUnderSampler
+from feature_engine.wrappers import SklearnTransformerWrapper
 from sklearn.preprocessing import StandardScaler
 from project.core.kknn import build_kknn
 from project.core.svm import build_svm
@@ -34,7 +35,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Create and fit pipeline
 pipeline = Pipeline(
     [
-        ("scaler", StandardScaler()),
+        ("scaler", SklearnTransformerWrapper(StandardScaler())),
         ("undersampler", RandomUnderSampler(random_state=42)),
     ]
 )
@@ -45,7 +46,6 @@ calc_class_distribution(y_train.value_counts().reset_index(), y_train.count())
 
 # Undersampling
 X_train_p, y_train_p = pipeline.fit_resample(X_train, y_train)
-
 print("\n\nTraining set distribution after undersampling --")
 calc_class_distribution(y_train_p.value_counts().reset_index(), y_train_p.count())
 
@@ -53,9 +53,9 @@ calc_class_distribution(y_train_p.value_counts().reset_index(), y_train_p.count(
 X_test_p = pipeline["scaler"].transform(X_test)
 
 # KKKN
-disp_kknn = build_kknn(X_train_p, y_train_p, X_test_p, y_test)
+# disp_kknn = build_kknn(X_train_p, y_train_p, X_test_p, y_test)
 # SVM model
-# disp_svm = build_svm(X_train_p, y_train_p, X_test_p, y_test)
+disp_svm = build_svm(X_train_p, y_train_p, X_test_p, y_test)
 
 # # Bagging
 # disp_bagging = build_bagging(

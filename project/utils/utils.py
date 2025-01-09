@@ -80,3 +80,6 @@ def compare_results(disp_kknn, disp_svm, disp_bagging):
     disp_bagging.plot(ax=ax3)
     ax3.set_title("Bagging Model")
     plt.show()
+    
+def shap_interpretation():
+    pass
