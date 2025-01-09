@@ -20,11 +20,11 @@ def build_svm(X_train, y_train, X_test, y_test):
         # verbose=2,
     )
 
-    grid_search.fit(X_train_scaled, y_train_undersampled)
+    grid_search.fit(X_train, y_test)
     # print("\nBest parameters for SVM: ", grid_search.best_params_)
 
     # Evaluating the model on the test data using the best parameters
-    grid_predictions = grid_search.predict(X_test_scaled)
+    grid_predictions = grid_search.predict(X_test)
     print(
         "\n\nClassification report for SVM model: -- \n\n",
         classification_report(y_test, grid_predictions),
