@@ -1,7 +1,7 @@
 from constants.constants import Columns
 import numpy as np
 import pandas as pd
-from project.utils.charts import (
+from project.utils.utils import (
     barplot_balance,
     heatmap_correlation,
     boxplot_histplot_outliers,

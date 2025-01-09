@@ -1,11 +1,19 @@
 from project.constants.constants import Columns
 from project.core.eda_analysis import perform_eda_analysis
-from project.utils.utils import get_df, prepare_data, calc_class_distribution
+from project.utils.utils import (
+    get_df,
+    prepare_data,
+    calc_class_distribution,
+    compare_results,
+)
 from sklearn.model_selection import train_test_split
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.preprocessing import StandardScaler
 from project.core.kknn import build_kknn
 from project.core.svm import build_svm
+from project.core.bagging import build_bagging
+from matplotlib import pyplot as plt
+
 
 # Read the dataset from a csv file
 df = get_df()
@@ -37,10 +45,13 @@ X_train_scaled = scaler.transform(X_train_undersampled)
 X_test_scaled = scaler.transform(X_test)
 
 # KKKN
-# build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
-
+disp_kknn = build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
 # SVM model
-build_svm(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
+disp_svm = build_svm(X_train_scaled, y_train_undersampled, X_test_scaled, y_test)
 
+# # Bagging
+disp_bagging = build_bagging(
+    X_train_scaled, y_train_undersampled, X_test_scaled, y_test
+)
 
-# Decision tree
+compare_results(disp_kknn, disp_svm, disp_bagging)

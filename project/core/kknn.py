@@ -20,6 +20,7 @@ def build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test):
         cv=5,
         scoring=["accuracy", "f1", "precision", "recall"],
         refit="f1",
+        # verbose=2,
     )
 
     # Fitting the grid search to the training data
@@ -28,10 +29,12 @@ def build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test):
 
     # Evaluating the model on the test data using the best parameters
     grid_predictions = grid_search.predict(X_test_scaled)
-    print(classification_report(y_test, grid_predictions))
+    print(
+        "\n\nClassification report for KKNN model: -- \n\n",
+        classification_report(y_test, grid_predictions),
+    )
 
     # Creating and plotting a confusion matrix
     matrix = confusion_matrix(y_test, grid_predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
-    disp.plot()
-    plt.show()
+    return disp
