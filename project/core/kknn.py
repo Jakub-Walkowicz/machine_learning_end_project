@@ -2,10 +2,12 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import ConfusionMatrixDisplay
-from matplotlib import pyplot as plt
+from ceteris_paribus.explainer import explain
+import shap
+import pandas as pd
 
 
-def build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test):
+def build_kknn(X_train, y_train, X_test, y_test):
     # Defining parameters for the model
     param_grid = {
         "n_neighbors": [3, 5, 7, 9, 11],
@@ -37,4 +39,8 @@ def build_kknn(X_train_scaled, y_train_undersampled, X_test_scaled, y_test):
     # Creating and plotting a confusion matrix
     matrix = confusion_matrix(y_test, grid_predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
+
+    matrix = confusion_matrix(y_test, grid_predictions)
+    disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
+
     return disp

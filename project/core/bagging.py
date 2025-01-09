@@ -3,10 +3,9 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.ensemble import BaggingClassifier
 from sklearn.metrics import ConfusionMatrixDisplay
 from sklearn.tree import DecisionTreeClassifier
-from matplotlib import pyplot as plt
 
 
-def build_bagging(X_train_scaled, y_train_undersampled, X_test_scaled, y_test):
+def build_bagging(X_train, y_train, X_test, y_test):
     # Defining parameters for the model
     param_grid = {
         "n_estimators": [10, 50, 100],
