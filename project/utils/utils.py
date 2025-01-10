@@ -1,7 +1,6 @@
 from constants.columns import Columns
 from constants.constants import FILE_PATH
 import pandas as pd
-from project.constants.constants import COLUMNS_FOR_DUMMY_ENCODING
 import seaborn as sns
 import matplotlib.pyplot as plt
 from constants.constants import NUMERIC_COLUMNS
@@ -9,7 +8,11 @@ from constants.constants import NUMERIC_COLUMNS
 
 # Load the dataset from a csv file and return a pandas DataFrame
 def get_df():
-    return pd.read_csv(FILE_PATH, sep=";")
+    df = pd.read_csv(FILE_PATH, sep=";")
+
+    # The column is dropped due to the fact that it is unknown before the call
+    df = df.drop(labels=Columns.DURATION, axis=1)
+    return df
 
 
 # Calculate class distribution based on provided 'value_counts()' dataframe ('y_value_counts') and total number of records ('total_samples')
@@ -29,16 +32,6 @@ def get_correlations(df):
     df_copy[Columns.OUTPUT] = df_copy[Columns.OUTPUT].map({"yes": 1, "no": 0})
     correlations = df_copy.corr(numeric_only=True)
     return correlations.sort_values(by=Columns.OUTPUT, ascending=False)
-
-
-# Preprocesses the data by encoding categorical variables and mapping the target variable to binary values (0 and 1)
-def prepare_data(df):
-    df = pd.get_dummies(
-        df, columns=COLUMNS_FOR_DUMMY_ENCODING, drop_first=True, dtype=int
-    )
-    target_map = {"yes": 1, "no": 0}
-    df[Columns.OUTPUT] = df[Columns.OUTPUT].map(target_map)
-    return df
 
 
 # Draws a barplot showing the balance of the dataset (variable 'y')
@@ -80,6 +73,7 @@ def compare_results(disp_kknn, disp_svm, disp_bagging):
     disp_bagging.plot(ax=ax3)
     ax3.set_title("Bagging Model")
     plt.show()
-    
+
+
 def shap_interpretation():
     pass

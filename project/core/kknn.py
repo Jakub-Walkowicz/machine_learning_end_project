@@ -2,8 +2,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import ConfusionMatrixDisplay
-from ceteris_paribus.explainer import explain
-import pandas as pd
 
 
 def build_kknn(X_train, y_train, X_test, y_test):
@@ -26,7 +24,7 @@ def build_kknn(X_train, y_train, X_test, y_test):
 
     # Fitting the grid search to the training data
     grid.fit(X_train, y_train)
-    print("\nBest parameters for KKNN: ", grid.best_params_)
+    # print("\nBest parameters for KKNN: ", grid.best_params_)
 
     # Evaluating the model on the test data using the best parameters
     grid_pred = grid.predict(X_test)

@@ -3,7 +3,6 @@ from imblearn.pipeline import Pipeline
 from project.core.eda_analysis import perform_eda_analysis
 from project.utils.utils import (
     get_df,
-    prepare_data,
     calc_class_distribution,
     compare_results,
 )
@@ -14,11 +13,12 @@ from sklearn.preprocessing import StandardScaler
 from project.core.kknn import build_kknn
 from project.core.svm import build_svm
 from project.core.bagging import build_bagging
+from project.core.data_preparation import prepare_data
 
 # Read the dataset from a csv file
 df = get_df()
 # Perform EDA
-# perform_eda_analysis(df)
+perform_eda_analysis(df)
 
 # Encode variables
 df = prepare_data(df)
@@ -53,13 +53,11 @@ calc_class_distribution(y_train_p.value_counts().reset_index(), y_train_p.count(
 X_test_p = pipeline["scaler"].transform(X_test)
 
 # KKKN
-# disp_kknn = build_kknn(X_train_p, y_train_p, X_test_p, y_test)
-# SVM model
+disp_kknn = build_kknn(X_train_p, y_train_p, X_test_p, y_test)
+# # SVM model
 disp_svm = build_svm(X_train_p, y_train_p, X_test_p, y_test)
 
-# # Bagging
-# disp_bagging = build_bagging(
-#     X_train_p, y_train_p, X_test_p, y_test
-# )
+# # # Bagging
+disp_bagging = build_bagging(X_train_p, y_train_p, X_test_p, y_test)
 
-# compare_results(disp_kknn, disp_svm, disp_bagging)
+compare_results(disp_kknn, disp_svm, disp_bagging)

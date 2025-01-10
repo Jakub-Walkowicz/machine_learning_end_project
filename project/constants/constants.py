@@ -18,8 +18,17 @@ NUMERIC_COLUMNS = [
     Columns.AGE,
     Columns.BALANCE,
     Columns.DAY,
-    Columns.DURATION,
     Columns.CAMPAIGN,
     Columns.PDAYS,
     Columns.PREVIOUS,
+]
+
+CATEGORICAL_COLUMNS = [
+    Columns.JOB, 
+    Columns.MARITAL,
+    Columns.EDUCATION,
+    Columns.DEFAULT,
+    Columns.HOUSING,
+    Columns.LOAN,
+    Columns.POUTCOME
 ]

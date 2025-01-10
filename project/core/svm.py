@@ -2,8 +2,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.svm import SVC
 from sklearn.metrics import ConfusionMatrixDisplay
-from project.utils.utils import shap_interpretation
 import shap
+import numpy as np
 
 
 def build_svm(X_train, y_train, X_test, y_test):
@@ -38,14 +38,15 @@ def build_svm(X_train, y_train, X_test, y_test):
     matrix = confusion_matrix(y_test, grid_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
 
-    # ------------------------------------------- #
-    # SHAP #
-
+    # SHAP interpretation
     model = grid.best_estimator_
     explainer = shap.LinearExplainer(model, X_train)
     shap_values = explainer.shap_values(X_test)
-    shap.summary_plot(shap_values, X_test)
-    shap.dependence_plot("balance", shap_values, X_test)
+    shap.plots.force(
+        explainer.expected_value,
+        np.round(shap_values[0][:5], 2),
+        np.round(X_test.iloc[0, :5], 2),
+        matplotlib=True,
+    )
 
-    # shap_interpretation()
     return disp
