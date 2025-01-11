@@ -17,7 +17,7 @@ def build_kknn(X_train, y_train, X_test, y_test):
         KNeighborsClassifier(),
         param_grid,
         cv=5,
-        scoring=["accuracy", "f1", "precision", "recall"],
+        scoring="f1",
         refit="f1",
         # verbose=2,
     )

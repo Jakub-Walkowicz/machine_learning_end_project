@@ -1,6 +1,7 @@
 from project.constants.columns import Columns
 
 FILE_PATH = "data/bank_full.csv"
+SAMPLE_SIZE = 50
 
 COLUMNS_FOR_DUMMY_ENCODING = [
     Columns.JOB,

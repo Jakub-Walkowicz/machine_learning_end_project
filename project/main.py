@@ -9,7 +9,7 @@ from project.utils.utils import (
 from sklearn.model_selection import train_test_split
 from imblearn.under_sampling import RandomUnderSampler
 from feature_engine.wrappers import SklearnTransformerWrapper
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
 from project.core.kknn import build_kknn
 from project.core.svm import build_svm
 from project.core.bagging import build_bagging
@@ -35,7 +35,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Create and fit pipeline
 pipeline = Pipeline(
     [
-        ("scaler", SklearnTransformerWrapper(StandardScaler())),
+        ("scaler", SklearnTransformerWrapper(RobustScaler())),
         ("undersampler", RandomUnderSampler(random_state=42)),
     ]
 )
@@ -54,10 +54,11 @@ X_test_p = pipeline["scaler"].transform(X_test)
 
 # KKKN
 disp_kknn = build_kknn(X_train_p, y_train_p, X_test_p, y_test)
-# # SVM model
+# SVM model
 disp_svm = build_svm(X_train_p, y_train_p, X_test_p, y_test)
 
-# # # Bagging
+# Bagging
 disp_bagging = build_bagging(X_train_p, y_train_p, X_test_p, y_test)
 
+# Visually compare the results of all models
 compare_results(disp_kknn, disp_svm, disp_bagging)

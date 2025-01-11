@@ -57,7 +57,7 @@ def perform_eda_analysis(df):
 
     # Analyse the impact of variables on each other
     correlations = get_correlations(df)
-    # heatmap_correlation(correlations)
+    heatmap_correlation(correlations)
     print(
         "\n\nImpact of specific variables on the forecast variable y --\n\n",
         correlations,

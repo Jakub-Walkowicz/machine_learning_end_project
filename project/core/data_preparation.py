@@ -15,4 +15,7 @@ def prepare_data(df):
     # Creation of a new feature based on 'previous' variable
     df["previous_binary"] = df[Columns.PREVIOUS].apply(lambda x: 1 if x > 0 else 0)
 
+    # The column is dropped due to the fact that it is unknown before the call
+    df = df.drop(labels=Columns.DURATION, axis=1)
+
     return df
